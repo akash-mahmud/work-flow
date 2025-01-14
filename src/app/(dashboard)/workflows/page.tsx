@@ -5,6 +5,7 @@ import { waitFor } from "@/lib/helper/waitFor";
 import { AlertCircle, InboxIcon } from "lucide-react";
 import React, { Suspense } from "react";
 import CreateJobFowDialogue from "./_components/CreateJobFowDialogue";
+import JobFlowCard from "./_components/JobFlowCard";
 
 const WorkFlowsPage = () => {
   return (
@@ -14,7 +15,7 @@ const WorkFlowsPage = () => {
           <div className="text-3xl font-bold">Flows</div>
           <p className=" text-muted-foreground">Manage your flows</p>
         </div>
-        <CreateJobFowDialogue  />
+        <CreateJobFowDialogue />
       </div>
       <div className=" h-full py-6 ">
         <Suspense fallback={<UserFlowsSkeleton />}>
@@ -64,7 +65,13 @@ async function UserFlows() {
       </div>
     );
   }
-  return <div></div>;
+  return (
+    <div className=" grid grid-cols-1 gap-4">
+      {jobflows.map((jobflow) => (
+        <JobFlowCard key={jobflow.id} jobflow={jobflow} />
+      ))}
+    </div>
+  );
 }
 
 export default WorkFlowsPage;
